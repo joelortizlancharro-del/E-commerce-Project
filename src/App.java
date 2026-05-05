@@ -1,5 +1,11 @@
+import java.sql.*;
+import utils.ConnexioBD;
+
 public class App {
+    static Connection conn;
+    static ConnexioBD conexio=null;
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        conexio = new ConnexioBD("tpv_botiga");
+        conexio.establirConexio();
     }
 }
