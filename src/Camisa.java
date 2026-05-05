@@ -24,5 +24,9 @@ public class Camisa extends Producte {
     public void setAmpladaPit(int ampladaPit) {
         this.ampladaPit = ampladaPit;
     }
+@Override
+public String toString() {
+    return super.toString() + " | Talla coll: " + tallaColl + " | Amplada pit: " + ampladaPit;
+}
 
 }

@@ -24,5 +24,8 @@ public class Pantalo extends Producte {
     public void setLlargadaCamal(int llargadaCamal) {
         this.llargadaCamal = llargadaCamal;
     }
-
+@Override
+public String toString() {
+    return super.toString() + " | Talla cintura: " + tallaCintura + " | Llargada camal: " + llargadaCamal;
+}
 }

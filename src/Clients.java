@@ -42,4 +42,10 @@ public class Clients {
     public void setTelefon(String telefon) {
         this.telefon = telefon;
     }
+
+   @Override
+public String toString() {
+    return "DNI: " + dni + " | Nom: " + nom + " | Email: " + email + " | Telèfon: " + telefon;
+}
+    
 }

@@ -62,5 +62,10 @@ public class Producte {
     public void setStock(int stock) {
         this.stock = stock;
     }
+@Override
+public String toString() {
+    return "ID: " + id + " | Nom: " + nom + " | Família: " + familia + 
+           " | Preu base: " + preuBase + " | IVA: " + IVA + "% | Stock: " + stock;
+}
 
 }
