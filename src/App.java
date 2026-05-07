@@ -7,5 +7,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         conexio = new ConnexioBD("tpv_botiga");
         conexio.establirConexio();
+        System.out.println("Hola");
     }
 }
