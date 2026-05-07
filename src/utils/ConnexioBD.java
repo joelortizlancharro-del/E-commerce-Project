@@ -17,36 +17,17 @@ public class ConnexioBD{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        }
-
-    public ResultSet consultaUsuaris(){
+    }
+    
+    public ResultSet selectArticles() {
         ResultSet rs=null;
         try{
             Statement stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM usuaris");
+            rs = stmt.executeQuery("SELECT * FROM articles");
         }catch(Exception e){
             e.printStackTrace();
         }
         return rs;
-    }
-
-    public int inserirUsuri(String usuari, int contrassenya,String correu){
-        String sql = "INSERT INTO usuaris (usuari, contrassenya, correu) VALUES (?, ?, ?)";
-        int estat=0;
-        try{ 
-            PreparedStatement ps = conn.prepareStatement(sql);
-        
-            ps.setString(1, usuari);
-            ps.setInt(2, contrassenya);
-            ps.setString(3, correu);
-
-            ps.executeUpdate();
-            estat=1;
-        }catch(Exception e){
-            e.printStackTrace();
-            estat=0;
-        }
-        return estat;
     }
     
 
