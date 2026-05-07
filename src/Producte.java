@@ -1,10 +1,10 @@
 public class Producte {
-    private int id;
-    private String nom;
-    private String familia;
-    private double preuBase;
-    private int IVA;
-    private int stock;
+    protected int id;
+    protected String nom;
+    protected String familia;
+    protected double preuBase;
+    protected int IVA;
+    protected int stock;
 
     public Producte(int id, String nom, String familia, double preuBase, int iVA, int stock) {
         this.id = id;
