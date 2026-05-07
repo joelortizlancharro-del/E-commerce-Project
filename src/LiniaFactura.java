@@ -62,9 +62,14 @@ public class LiniaFactura {
     public void setPreuFinal(double preuFinal) {
         this.preuFinal = preuFinal;
     }
+
+    public void llegirArrayList(){
+        
+    }
+
     @Override
-public String toString() {
-    return "Tiquet: " + idTiquet + " | Article: " + idArticle + " | Quantitat: " + quantitat +
-           " | Preu base: " + preuBase + " | IVA: " + iva + "% | Total: " + preuFinal;
-}
+    public String toString() {
+        return "Tiquet: " + idTiquet + " | Article: " + idArticle + " | Quantitat: " + quantitat +
+                " | Preu base: " + preuBase + " | IVA: " + iva + "% | Total: " + preuFinal;
+    }
 }
