@@ -22,40 +22,32 @@ public class ControlJSON {
     public void principal(){
 
     }
-    public String llegirProductes(int num){
-        carregarJSON();
-        Producte newProducte = new Producte();
-        ArrayList<Producte> productes = new ArrayList<>();
-        int id;
-        String nom;
-        String familia;
-        int talla_cintura;
-        int llargada_camal;
-        double preu_base;
-        int iva;
-        int stock;
-        int talla_coll;
-        int amplada_pit;
-        JSONArray articles = (JSONArray) producte;
-        num = 0;
-        for(int j = 0; j < articles.size(); j++){
-            JSONObject article = (JSONObject) articles.get(j);
-            id = (int) article.get("id");
-            nom = (String) article.get("nom");
-            familia = (String) article.get("familia");
-            preu_base = (double) article.get("preu_base");
-            iva = (int) article.get("iva");
-            if(familia.equals("pantaló")){
-                talla_cintura = (int) article.get("talla_cintura");
-                llargada_camal = (int) article.get("talla_camal");
-            }
-            else{
-                talla_coll = (int) article.get("talla_coll");
-                amplada_pit = (int) article.get("amplada_pit");
-            }
+public ArrayList<Producte> llegirProductes() {
+    carregarJSON();
+    ArrayList<Producte> productes = new ArrayList<>();
+    JSONArray articles = (JSONArray) producte;
+
+    for (int j = 0; j < articles.size(); j++) {
+        JSONObject article = (JSONObject) articles.get(j);
+        int id = ((Long) article.get("id")).intValue();
+        String nom = (String) article.get("nom");
+        String familia = (String) article.get("familia");
+        double preuBase = (double) article.get("preu_base");
+        int iva = ((Long) article.get("iva")).intValue();
+        int stock = ((Long) article.get("stock")).intValue();
+
+        if (familia.equals("pantaló")) {
+            int tallaCintura = ((Long) article.get("talla_cintura")).intValue();
+            int llargadaCamal = ((Long) article.get("llargada_camal")).intValue();
+            productes.add(new Pantalo(id, nom, familia, preuBase, iva, stock, tallaCintura, llargadaCamal));
+        } else {
+            int tallaColl = ((Long) article.get("talla_coll")).intValue();
+            int ampladaPit = ((Long) article.get("amplada_pit")).intValue();
+            productes.add(new Camisa(id, nom, familia, preuBase, iva, stock, tallaColl, ampladaPit));
         }
     }
-
+    return productes;
+}
     public void carregarJSON(){
         JSONParser parser = new JSONParser();
         producte = null;
