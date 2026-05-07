@@ -68,4 +68,6 @@ public String toString() {
            " | Preu base: " + preuBase + " | IVA: " + IVA + "% | Stock: " + stock;
 }
 
+   
+    
 }
