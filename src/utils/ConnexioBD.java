@@ -3,8 +3,8 @@ import java.sql.*;
 
 public class ConnexioBD{
     static String URL;
-    static final String USER = System.getenv("DB_USER");
-    static final String PASSWORD = System.getenv("DB_PASSWORD"); 
+    static final String USER = "root";
+    static final String PASSWORD = "";
     public static Connection conn;
     //
     public ConnexioBD(String nomBD){

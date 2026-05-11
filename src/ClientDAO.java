@@ -17,7 +17,7 @@ public class ClientDAO {
             ps.setString(3, client.getEmail());
             ps.setString(4, client.getTelefon());
             ps.executeUpdate();
-            System.out.println("Client afegit correctament!");
+            System.out.println("Client afegit correctament");
         } catch (SQLException e) {
             e.printStackTrace();
         }
