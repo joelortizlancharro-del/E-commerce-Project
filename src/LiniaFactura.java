@@ -63,10 +63,6 @@ public class LiniaFactura {
         this.preuFinal = preuFinal;
     }
 
-    public void llegirArrayList(){
-        
-    }
-
     @Override
     public String toString() {
         return "Tiquet: " + idTiquet + " | Article: " + idArticle + " | Quantitat: " + quantitat +
