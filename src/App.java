@@ -11,6 +11,11 @@ public class App {
     }
     public void principal() {
         conexio = new ConnexioBD("tpv_botiga");
-        conexio.establirConexio();
+        boolean conected = conexio.establirConexio();
+        if(conected) {
+            System.out.println("conectat");
+        }else {
+            System.out.println("error conexio");
+        }
     }
 }
