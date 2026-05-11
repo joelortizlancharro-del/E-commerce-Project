@@ -1,7 +1,9 @@
 package utils;
 import java.sql.*;
+//import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnexioBD{
+    
     static String URL;
     static final String USER = "root";/*System.getenv("DB_USER");*/
     static final String PASSWORD = "Programicion24!";/*System.getenv("DB_PASSWORD"); */
@@ -33,6 +35,7 @@ public class ConnexioBD{
         }
         return rs;
     }
+
     
     public ResultSet selectArticlesById(int id) {
         ResultSet rs=null;
