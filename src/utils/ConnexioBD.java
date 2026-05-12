@@ -55,23 +55,23 @@ public class ConnexioBD{
         ResultSet rs=null;
         try{
                 Statement stmt = conn.createStatement();
-                String sql = "INSERT INTO articles (id, nom, familia, ?, ?, preu_base, iva, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-                PreparedStatement ps = conn.prepareStatement(sql);
+                
+                String sql = "";
+                    
                 if(familia.equals("camisa")){
-                    ps.setString(1, "talla_coll");
-                    ps.setString(2, "amplada_pit");
+                    sql = "INSERT INTO articles (id, nom, familia, talla_coll, amplada_pit, preu_base, iva, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                 }else {
-                    ps.setString(1, "talla_cintura");
-                    ps.setString(2, "llargada_camal");
+                    sql = "INSERT INTO articles (id, nom, familia, talla_cintura, llargada_camal, preu_base, iva, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                 }
-                ps.setInt(3, id);
-                ps.setString(4, nom);
-                ps.setString(5, familia);
-                ps.setInt(6, tallaColl_cintura);
-                ps.setInt(7, ampladaPit_llargadaCamal);
-                ps.setDouble(8, preu_base);
-                ps.setInt(9, iva);
-                ps.setInt(10, stock);
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.setString(2, nom);
+                ps.setString(3, familia);
+                ps.setInt(4, tallaColl_cintura);
+                ps.setInt(5, ampladaPit_llargadaCamal);
+                ps.setDouble(6, preu_base);
+                ps.setInt(7, iva);
+                ps.setInt(8, stock);
                 rs = stmt.executeQuery(sql);
             }catch(Exception e){
                 e.printStackTrace();
@@ -96,24 +96,22 @@ public class ConnexioBD{
         ResultSet rs=null;
         try{
                 Statement stmt = conn.createStatement();
-                String sql = "UPDATE articles nom = ? , familia = ?, ? = ?, ? = ?, preu_base = ?, iva = ?, stock = ? WHERE id = ?;";
+                String sql = "";
                 
                 PreparedStatement ps = conn.prepareStatement(sql);
                 if(familia.equals("camisa")){
-                    ps.setString(3, "talla_coll");
-                    ps.setString(5, "amplada_pit");
+                    sql = "UPDATE articles nom = ? , familia = ?, talla_coll = ?, amplada_pit = ?, preu_base = ?, iva = ?, stock = ? WHERE id = ?;";
                 }else {
-                    ps.setString(3, "talla_cintura");
-                    ps.setString(5, "llargada_camal");
+                    sql = "UPDATE articles nom = ? , familia = ?, talla_cintura = ?, llargada_camal = ?, preu_base = ?, iva = ?, stock = ? WHERE id = ?;";
                 }
                 ps.setString(1, nom);
                 ps.setString(2, familia);
-                ps.setInt(4, tallaColl_cintura);
-                ps.setInt(6, ampladaPit_llargadaCamal);
-                ps.setDouble(7, preu_base);
-                ps.setInt(8, iva);
-                ps.setInt(9, stock);
-                ps.setInt(10, id);
+                ps.setInt(3, tallaColl_cintura);
+                ps.setInt(4, ampladaPit_llargadaCamal);
+                ps.setDouble(5, preu_base);
+                ps.setInt(6, iva);
+                ps.setInt(7, stock);
+                ps.setInt(8, id);
                 rs = stmt.executeQuery(sql);
             }catch(Exception e){
                 e.printStackTrace();
