@@ -14,7 +14,12 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         conexio = new ConnexioBD("tpv_botiga");
-        conexio.establirConexio();
+      if (conexio.establirConexio()){
+        System.out.println("Conectat");
+      }
+      else{
+        System.out.println("Error");
+      }
         App p = new App();
         p.principal();
     }
@@ -33,6 +38,7 @@ public class App {
     }
 
     public void opcions(int num){ //Aixo es el switch
+
         switch (num) {
             case 1:
                 inicialitzarBD();
@@ -44,8 +50,9 @@ public class App {
     }
 
     public void inicialitzarBD(){
+        
         ArrayList<Producte> productes = json.llegirProductes();
-       
+        
         for(int j = 0; j < productes.size(); j++){
             if(productes.get(j) instanceof Pantalo){
                     Pantalo p = (Pantalo)productes.get(j);
