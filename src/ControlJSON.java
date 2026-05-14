@@ -52,7 +52,7 @@ public ArrayList<Producte> llegirProductes() {
         JSONParser parser = new JSONParser();
         producte = null;
         try {
-            producte = parser.parse(new FileReader("PE11_articles.json"));
+            producte = parser.parse(new FileReader("resources\\PE11_articles.json"));
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
