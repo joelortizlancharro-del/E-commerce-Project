@@ -1,12 +1,12 @@
 public class Producte {
     protected int id;
     protected String nom;
-    protected String familia;
+    protected int familia;
     protected double preuBase;
     protected int IVA;
     protected int stock;
 
-    public Producte(int id, String nom, String familia, double preuBase, int iVA, int stock) {
+    public Producte(int id, String nom, int familia, double preuBase, int iVA, int stock) {
         this.id = id;
         this.nom = nom;
         this.familia = familia;
@@ -31,11 +31,11 @@ public class Producte {
         this.nom = nom;
     }
 
-    public String getFamilia() {
+    public int getFamilia() {
         return familia;
     }
 
-    public void setFamilia(String familia) {
+    public void setFamilia(int familia) {
         this.familia = familia;
     }
 
