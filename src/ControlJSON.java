@@ -31,12 +31,12 @@ public ArrayList<Producte> llegirProductes() {
         JSONObject article = (JSONObject) articles.get(j);
         int id = ((Long) article.get("id")).intValue();
         String nom = (String) article.get("nom");
-        String familia = (String) article.get("familia");
+        int familia = ((Long) article.get("familia")).intValue();
         double preuBase = (double) article.get("preu_base");
         int iva = ((Long) article.get("iva")).intValue();
         int stock = ((Long) article.get("stock")).intValue();
 
-        if (familia.equals("pantaló")) {
+        if (familia == 2) {
             int tallaCintura = ((Long) article.get("talla_cintura")).intValue();
             int llargadaCamal = ((Long) article.get("llargada_camal")).intValue();
             productes.add(new Pantalo(id, nom, familia, preuBase, iva, stock, tallaCintura, llargadaCamal));

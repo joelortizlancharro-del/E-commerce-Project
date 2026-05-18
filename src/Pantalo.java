@@ -2,7 +2,7 @@ public class Pantalo extends Producte {
     private int tallaCintura;
     private int llargadaCamal;
 
-    public Pantalo(int id, String nom, String familia, double preuBase, int iVA, int stock, int tallaCintura,
+    public Pantalo(int id, String nom, int familia, double preuBase, int iVA, int stock, int tallaCintura,
             int llargadaCamal) {
         super(id, nom, familia, preuBase, iVA, stock);
         this.tallaCintura = tallaCintura;
