@@ -11,7 +11,7 @@ USE tpv_botiga;
 CREATE TABLE articles (
     id INT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
-    familia ENUM('camisa', 'pantaló') NOT NULL,
+    familia INT NOT NULL,
 
     talla_coll INT,
     amplada_pit INT,
@@ -27,11 +27,17 @@ CREATE TABLE articles (
     CHECK (stock >= 0),
 
     CHECK (
-        (familia = 'camisa' AND talla_coll BETWEEN 36 AND 52 AND amplada_pit BETWEEN 10 AND 15)
+        (talla_coll BETWEEN 36 AND 52 AND amplada_pit BETWEEN 10 AND 15)
         OR
-        (familia = 'pantaló' AND talla_cintura BETWEEN 24 AND 56 AND llargada_camal BETWEEN 32 AND 46)
+        (talla_cintura BETWEEN 24 AND 56 AND llargada_camal BETWEEN 32 AND 46)
     )
+    FOREIGN key (familia) REFERENCES families(id);
 );
+
+
+create table families (
+id int auto_increment primary key,
+familia varchar(100) not null);
 
 -- =========================
 -- TAULA CLIENTS
