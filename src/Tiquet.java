@@ -62,9 +62,10 @@ public class Tiquet {
     public void setTotalFinal(double totalFinal) {
         this.totalFinal = totalFinal;
     }
+
     @Override
-public String toString() {
-    return "ID Tiquet: " + id + " | Data: " + data + " | Client: " + dniClient +
-           " | Base: " + totalBase + " | IVA: " + totalIva + " | Total: " + totalFinal;
-}
+    public String toString() {
+        return "ID Tiquet: " + id + " | Data: " + data + " | Client: " + dniClient +
+                " | Base: " + totalBase + " | IVA: " + totalIva + " | Total: " + totalFinal;
+    }
 }
