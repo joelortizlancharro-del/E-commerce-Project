@@ -6,7 +6,7 @@ public class ConnexioBD{
     
     static String URL;
     static final String USER = "root";/*System.getenv("DB_USER");*/
-    static final String PASSWORD = "Programicion24!";/*System.getenv("DB_PASSWORD"); */
+    static final String PASSWORD = "";/*System.getenv("DB_PASSWORD"); */
     public static Connection conn;
     //
     public ConnexioBD(String nomBD){
