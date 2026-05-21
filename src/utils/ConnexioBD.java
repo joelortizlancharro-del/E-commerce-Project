@@ -6,7 +6,7 @@ public class ConnexioBD{
     
     static String URL;
     static final String USER = "root";/*System.getenv("DB_USER");*/
-    static final String PASSWORD = "";/*System.getenv("DB_PASSWORD"); */
+    static final String PASSWORD = "Programicion24!";/*System.getenv("DB_PASSWORD"); */
     public static Connection conn;
     //
     public ConnexioBD(String nomBD){
@@ -36,21 +36,20 @@ public class ConnexioBD{
         return rs;
     }
 
-    
     public ResultSet selectArticlesById(int id) {
         ResultSet rs=null;
             try{
-                Statement stmt = conn.createStatement();
                 String sql = "SELECT * FROM articles WHERE id = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, id);
-                rs = stmt.executeQuery(sql);
+                rs = ps.executeQuery(sql);
             }catch(Exception e){
                 e.printStackTrace();
             }
         return rs;
     }
-    public void insertArticle(int id, String nom, String familia,
+    
+    public void insertArticle(int id, String nom, int familia,
                             int tallaColl_cintura,
                             int ampladaPit_llargadaCamal,
                             double preu_base, int iva, int stock){
@@ -59,7 +58,7 @@ public class ConnexioBD{
 
             String sql;
 
-            if(familia.equals("camisa")){
+            if(familia == 1){
                 sql = "INSERT INTO articles " +
                     "(id, nom, familia, talla_coll, amplada_pit, preu_base, iva, stock) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -73,7 +72,7 @@ public class ConnexioBD{
 
             ps.setInt(1, id);
             ps.setString(2, nom);
-            ps.setString(3, familia);
+            ps.setInt(3, familia);
             ps.setInt(4, tallaColl_cintura);
             ps.setInt(5, ampladaPit_llargadaCamal);
             ps.setDouble(6, preu_base);
@@ -88,6 +87,47 @@ public class ConnexioBD{
             e.printStackTrace();
         }
     }
+
+    public void updateArticle(int id, String nom, int familia,
+                            int tallaColl_cintura,
+                            int ampladaPit_llargadaCamal,
+                            double preu_base, int iva, int stock){
+
+        try{
+
+            String sql;
+
+            if(familia == 1){
+                sql = "UPDATE articles SET " +
+                    "nom = ?, familia = ?, talla_coll = ?, amplada_pit = ?, preu_base = ?, iva = ?, stock = ? " +
+                    "WHERE id = ?";
+            } else {
+                sql = "UPDATE articles SET " +
+                    "nom = ?, familia = ?, talla_coll = ?, amplada_pit = ?, preu_base = ?, iva = ?, stock = ? " +
+                    "WHERE id = ?";
+            }
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            
+            ps.setString(1, nom);
+            ps.setInt(2, familia);
+            ps.setInt(3, tallaColl_cintura);
+            ps.setInt(4, ampladaPit_llargadaCamal);
+            ps.setDouble(5, preu_base);
+            ps.setInt(6, iva);
+            ps.setInt(7, stock);
+            ps.setInt(8, id);
+
+            ps.executeUpdate();
+
+            System.out.println("Article insertat correctament");
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void deleteArticle(int id) {
 
         try{
