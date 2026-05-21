@@ -70,23 +70,23 @@ public class App {
 
     public boolean checkStock(int quantitat, int idArticle) {
 
-    boolean result = false;
+        boolean result = false;
 
-    try {
-        ResultSet rs = conexio.selectArticlesById(idArticle);
+        try {
+            ResultSet rs = conexio.selectArticlesById(idArticle);
 
-        if (rs.next()) {
+            if (rs.next()) {
 
-            int stockActual = rs.getInt("stock");
+                int stockActual = rs.getInt("stock");
 
-            result = stockActual >= quantitat;
+                result = stockActual >= quantitat;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error comprovant stock: " + e.getMessage());
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        System.err.println("Error comprovant stock: " + e.getMessage());
-        e.printStackTrace();
+        return result;
     }
-
-    return result;
-}
 }
