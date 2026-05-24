@@ -120,7 +120,7 @@ public class App {
         System.out.println("====================================");
         System.out.println("Vols buscar informacio de usuaris!!!");
         System.out.println("====================================");
-        System.out.println("1. Buscar per ID.");
+        System.out.println("1. Buscar per DNI.");
         System.out.println("2. Recerca de tots els usuaris.");
         System.out.print("Que vols fer?");
         int num = sc.nextInt();
@@ -156,6 +156,10 @@ public class App {
         clientDAO.consultarClient(dni);
     }
 
+    public void recercaTotsClients(){
+        clientDAO.llistarClients();
+    }
+
     public void crearClient(){
 
         System.out.println("Creant client...");
@@ -166,7 +170,7 @@ public class App {
         } while (!demanarDNI(dni));
 
         sc.nextLine();
-        System.out.println("Introdueix el seu nom: ");
+        System.out.print("Introdueix el seu nom: ");
         String nom = sc.nextLine();
 
         String email;
@@ -177,9 +181,9 @@ public class App {
 
         String telefon;
         do {
-            System.out.print("Introdueix el seu felefon: ");
+            System.out.print("Introdueix el seu telefon: ");
             telefon = sc.next();
-        } while (controlNumero(telefon));
+        } while (!controlNumero(telefon));
         
         Clients client = new Clients(dni, nom, email, telefon);
 
