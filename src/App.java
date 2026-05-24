@@ -51,6 +51,9 @@ public class App {
             case 2:
                 menuCRUDClients();
                 break;
+
+            case 3:
+                menuCRUDArticles();
         
             default:
                 break;
@@ -97,11 +100,32 @@ public class App {
         } while (num > 4 || num < 1);
     }
 
+    public void menuCRUDArticles(){
+        int num;
+        do {
+            System.out.println("========================================");
+            System.out.println("Vols realitzar canvis en els articles!!!");
+            System.out.println("========================================");
+            System.out.println("1. Crear article.");
+            System.out.println("2. Buscar article."); //afegir taula amb dos tipus de busqueda
+            System.out.println("3. Actualitzar article."); 
+            System.out.println("4. Eliminar article."); 
+            System.out.print("Que vols fer?");
+            num = sc.nextInt();
+            if(num == 2){
+                opcionsBuscarArticle();
+            }
+            else{
+                CRUDArticlesSwitch(num);
+            }
+        } while (num > 4 || num < 1);
+    }
+    
     public void CRUDCLientSwitch(int num){
         
         switch (num) {
             case 1:
-                crearClient(); //fet
+                crearClient();
                 break;
             
             case 3:
@@ -110,6 +134,24 @@ public class App {
         
             case 4:
                 esborrarClient();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void CRUDArticlesSwitch(int num){
+        switch (num) {
+            case 1:
+                crearArticle();
+                break;
+            
+            case 3:
+                modificarArticle();
+                break;
+        
+            case 4:
+                esborrarArticle();
                 break;
             default:
                 break;
@@ -127,6 +169,17 @@ public class App {
         switchBuscarClients(num);
     }
 
+    public void opcionsBuscarArticle(){
+        System.out.println("====================================");
+        System.out.println("Vols buscar informacio de articles!!!");
+        System.out.println("====================================");
+        System.out.println("1. Buscar per ID.");
+        System.out.println("2. Recerca de tots els articles.");
+        System.out.print("Que vols fer?");
+        int num = sc.nextInt();
+        switchBuscarArticles(num);
+    }
+
     public void switchBuscarClients(int num){
         switch (num) {
             case 1:
@@ -135,6 +188,21 @@ public class App {
 
             case 2: 
                 recercaTotsClients();
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    public void switchBuscarArticles(int num){
+        switch (num) {
+            case 1:
+                buscarArticleID();
+                break;
+
+            case 2: 
+                recercaTotsArticles();
                 break;
         
             default:
@@ -156,8 +224,21 @@ public class App {
         clientDAO.consultarClient(dni);
     }
 
+    public void buscarArticleID(){
+        System.out.println("Vols buscar un article per ID.");
+        System.out.println("");
+        System.out.println("Introdueix el ID del article que vols buscar: ");
+        int id = sc.nextInt();
+
+        conexio.selectArticlesById(id);
+    }
+
     public void recercaTotsClients(){
         clientDAO.llistarClients();
+    }
+
+    public void recercaTotsArticles(){
+        conexio.selectArticles();
     }
 
     public void crearClient(){
@@ -191,6 +272,99 @@ public class App {
         clientDAO.afegirClient(client);
     }
 
+    public void crearArticle(){
+        Producte producte;
+       System.out.println("Creant article...");
+        int id;
+        System.out.print("Introdueix el ID del nou article: ");
+        id = sc.nextInt();
+
+        String nom;
+        System.out.print("Introdueix el nom del article: ");
+        nom = sc.nextLine();
+
+        int familia;
+        do {
+            System.out.println("Introdueix la familia: ");
+            System.out.println("1. Camisa.");
+            System.out.println("2. Pantalo");
+            familia = sc.nextInt();
+        } while (!controlFamilia(familia));
+
+        double preu_base;
+        System.out.print("Introdueix el preu base: ");
+        preu_base = sc.nextDouble();
+
+        int iva;
+        do {
+            System.out.print("Introdueix IVA: ");
+            iva = sc.nextInt();
+        } while (iva < 0);
+
+        int stock;
+        do {
+            System.out.print("Introdueix stock: ");
+            stock = sc.nextInt();
+        } while (stock < 0);
+
+        if(familia == 1){
+           
+            System.out.println("Introdueix talla coll");
+            int talla_coll = sc.nextInt();
+           
+            if(talla_coll > 52){
+                talla_coll = 52;
+                System.out.println("Talla de coll: 52.");
+            }
+            else if(talla_coll < 36){
+                talla_coll = 36;
+                System.out.println("Talla de coll: 36.");
+            }
+
+            System.out.println("Introdueix amplada pit");
+            int amplada_pit = sc.nextInt();
+            
+            if(amplada_pit > 15){
+                amplada_pit = 15;
+                System.out.println("Amplada pit: 15.");
+            }
+            else if(amplada_pit < 10){
+                amplada_pit = 10;
+                System.out.println("Amplada pit: 10.");
+            }
+
+            conexio.insertArticle(id, nom, familia, talla_coll, amplada_pit, preu_base, iva, stock); //quan faci merge amb el develop no hi haura error
+        }
+        else if(familia == 2){
+            
+            System.out.println("Introdueix talla cintura");
+            int talla_cintura = sc.nextInt();
+           
+            if(talla_cintura > 56){
+                talla_cintura = 56;
+                System.out.println("Talla cintura: 56.");
+            }
+            else if(talla_cintura < 24){
+                talla_cintura = 24;
+                System.out.println("Talla cintura: 24.");
+            }
+
+            System.out.println("Introdueix llargada camal");
+            int llargada_camal = sc.nextInt();
+            
+            if(llargada_camal > 46){
+                llargada_camal = 46;
+                System.out.println("Llargada camal: 46.");
+            }
+            else if(llargada_camal < 32){
+                llargada_camal = 32;
+                System.out.println("Llargada camal: 32.");
+            }
+
+            conexio.insertArticle(id, nom, familia, talla_cintura, llargada_camal, preu_base, iva, stock);  //quan faci el merge quedara correcte ja que en el origin develop el familia es int
+        }
+    }
+
     public void modificarClient(){
         System.out.println("Has decidit modificar un client.");
         System.out.println("");
@@ -222,6 +396,98 @@ public class App {
         
     }
 
+    public void modificarArticle(){ //preguntar a Albert si es pot cambiar de tipus de familia
+        System.out.println("Vols modificar un article");
+        System.out.println("");
+        System.out.print("Introdueix el ID del article a modificar: ");
+        int id = sc.nextInt();
+
+        String nom;
+        System.out.print("Introdueix el nom del article: ");
+        nom = sc.nextLine();
+
+        int familia;
+        do {
+            System.out.println("Introdueix la familia: ");
+            System.out.println("1. Camisa.");
+            System.out.println("2. Pantalo");
+            familia = sc.nextInt();
+        } while (!controlFamilia(familia));
+
+        double preu_base;
+        System.out.print("Introdueix el preu base: ");
+        preu_base = sc.nextDouble();
+
+        int iva;
+        do {
+            System.out.print("Introdueix IVA: ");
+            iva = sc.nextInt();
+        } while (iva < 0);
+
+        int stock;
+        do {
+            System.out.print("Introdueix stock: ");
+            stock = sc.nextInt();
+        } while (stock < 0);
+
+        if(familia == 1){
+           
+            System.out.println("Introdueix talla coll");
+            int talla_coll = sc.nextInt();
+           
+            if(talla_coll > 52){
+                talla_coll = 52;
+                System.out.println("Talla de coll: 52.");
+            }
+            else if(talla_coll < 36){
+                talla_coll = 36;
+                System.out.println("Talla de coll: 36.");
+            }
+
+            System.out.println("Introdueix amplada pit");
+            int amplada_pit = sc.nextInt();
+            
+            if(amplada_pit > 15){
+                amplada_pit = 15;
+                System.out.println("Amplada pit: 15.");
+            }
+            else if(amplada_pit < 10){
+                amplada_pit = 10;
+                System.out.println("Amplada pit: 10.");
+            }
+
+            conexio.updateArticle(id, nom, familia, talla_coll, amplada_pit, preu_base, iva, stock); //quan faci merge amb el develop no hi haura error
+        }
+        else if(familia == 2){
+            
+            System.out.println("Introdueix talla cintura");
+            int talla_cintura = sc.nextInt();
+           
+            if(talla_cintura > 56){
+                talla_cintura = 56;
+                System.out.println("Talla cintura: 56.");
+            }
+            else if(talla_cintura < 24){
+                talla_cintura = 24;
+                System.out.println("Talla cintura: 24.");
+            }
+
+            System.out.println("Introdueix llargada camal");
+            int llargada_camal = sc.nextInt();
+            
+            if(llargada_camal > 46){
+                llargada_camal = 46;
+                System.out.println("Llargada camal: 46.");
+            }
+            else if(llargada_camal < 32){
+                llargada_camal = 32;
+                System.out.println("Llargada camal: 32.");
+            }
+
+            conexio.updateArticle(id, nom, familia, talla_cintura, llargada_camal, preu_base, iva, stock);  //quan faci el merge quedara correcte ja que en el origin develop el familia es int
+        }
+    }
+
     public void esborrarClient(){
         System.out.println("Vols eliminar un client.");
         System.out.println("");
@@ -232,6 +498,15 @@ public class App {
         } while (!demanarDNI(dni));
 
         clientDAO.esborrarClient(dni);
+    }
+
+    public void esborrarArticle(){
+        System.out.println("Vols eliminar un article.");
+        System.out.println("");
+        System.out.print("Introdueix el ID del article a eliminar: ");
+        int id = sc.nextInt();
+
+        conexio.deleteArticle(id);
     }
 
     public boolean demanarDNI(String dni){
@@ -279,5 +554,14 @@ public class App {
             }
         }
         return true;
+    }
+
+    public boolean controlFamilia(int familia){
+        if(familia == 1 || familia == 2){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
