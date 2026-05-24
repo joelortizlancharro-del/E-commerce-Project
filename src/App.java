@@ -142,15 +142,28 @@ public class App {
         }
     }
 
+    public void buscarClientID(){
+      
+        System.out.println("Vols buscar un client per el seu DNI.");
+        System.out.println("");
+       
+        String dni;
+        do {
+            System.out.print("Introdueix el DNI del client que vols buscar: ");
+            dni = sc.next();
+        } while (!demanarDNI(dni));
+       
+        clientDAO.consultarClient(dni);
+    }
+
     public void crearClient(){
 
         System.out.println("Creant client...");
         String dni;
         do {
-        System.out.print("Introdueix el seu DNI: ");
-        dni = sc.next();
+            System.out.print("Introdueix el seu DNI: ");
+            dni = sc.next();
         } while (!demanarDNI(dni));
-
 
         sc.nextLine();
         System.out.println("Introdueix el seu nom: ");
