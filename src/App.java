@@ -101,7 +101,7 @@ public class App {
         
         switch (num) {
             case 1:
-                crearClient();
+                crearClient(); //fet
                 break;
             
             case 3:
@@ -172,6 +172,37 @@ public class App {
 
         
         clientDAO.afegirClient(client);
+    }
+
+    public void modificarClient(){
+        System.out.println("Has decidit modificar un client.");
+        System.out.println("");
+        String dni;
+        do {
+            System.out.print("Introdueix el DNI del client: ");
+        dni = sc.next();
+        } while (!demanarDNI(dni));
+
+        sc.nextLine();
+        String nom;
+        System.out.println("Introdueix el seu nom: ");
+        nom = sc.nextLine();
+
+        String email;
+        do {
+            System.out.println("Introdueix el seu correu: ");
+            email = sc.next();
+        } while (!controlEmail(email));
+
+        String telefon;
+        do {
+            System.out.println("Introdueix el seu numero de telefon: ");
+            telefon = sc.next();
+        } while (!controlNumero(telefon));
+
+        Clients client = new Clients(dni, nom, email, telefon);
+        clientDAO.modificarClient(client);
+        
     }
 
     public boolean demanarDNI(String dni){
