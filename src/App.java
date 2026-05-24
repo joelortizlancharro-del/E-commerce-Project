@@ -185,24 +185,36 @@ public class App {
 
         sc.nextLine();
         String nom;
-        System.out.println("Introdueix el seu nom: ");
+        System.out.print("Introdueix el seu nom: ");
         nom = sc.nextLine();
 
         String email;
         do {
-            System.out.println("Introdueix el seu correu: ");
+            System.out.print("Introdueix el seu correu: ");
             email = sc.next();
         } while (!controlEmail(email));
 
         String telefon;
         do {
-            System.out.println("Introdueix el seu numero de telefon: ");
+            System.out.print("Introdueix el seu numero de telefon: ");
             telefon = sc.next();
         } while (!controlNumero(telefon));
 
         Clients client = new Clients(dni, nom, email, telefon);
         clientDAO.modificarClient(client);
         
+    }
+
+    public void eliminarClient(){
+        System.out.println("Vols eliminar un client.");
+        System.out.println("");
+         String dni;
+        do {
+            System.out.print("Introdueix el DNI del client que vols eliminar: ");
+        dni = sc.next();
+        } while (!demanarDNI(dni));
+
+        clientDAO.esborrarClient(dni);
     }
 
     public boolean demanarDNI(String dni){
