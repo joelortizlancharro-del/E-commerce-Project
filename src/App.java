@@ -205,7 +205,7 @@ public class App {
         
     }
 
-    public void eliminarClient(){
+    public void esborrarClient(){
         System.out.println("Vols eliminar un client.");
         System.out.println("");
          String dni;
