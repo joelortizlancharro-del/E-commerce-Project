@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import utils.ConnexioBD;
 
 public class App {
@@ -49,24 +48,20 @@ public class App {
     }
 
     public void inicialitzarBD() {
+    ArrayList<Producte> productes = json.llegirProductes();
 
-        ArrayList<Producte> productes = json.llegirProductes();
-
-        for (int j = 0; j < productes.size(); j++) {
-            if (productes.get(j) instanceof Pantalo) {
-                Pantalo p = (Pantalo) productes.get(j);
-                conexio.insertArticle(p.getId(), p.getNom(), p.getFamilia(), p.getTallaCintura(), p.getLlargadaCamal(),
-                        p.getPreuBase(), p.getIVA(), p.getStock());
-
-            } else {
-                Camisa c = (Camisa) productes.get(j);
-                conexio.insertArticle(c.getId(), c.getNom(), c.getFamilia(), c.getTallaColl(), c.getAmpladaPit(),
-                        c.getPreuBase(), c.getIVA(), c.getStock());
-
-            }
-
-        }
+    for (int j = 0; j < productes.size(); j++) {
+       if (productes.get(j) instanceof Pantalo) {
+    Pantalo p = (Pantalo) productes.get(j);
+    conexio.insertArticle(p.getId(), p.getNom(), p.getFamilia(), p.getTallaCintura(), p.getLlargadaCamal(),
+            p.getPreuBase(), p.getIVA(), p.getStock());
+} else {
+    Camisa c = (Camisa) productes.get(j);
+    conexio.insertArticle(c.getId(), c.getNom(), c.getFamilia(), c.getTallaColl(), c.getAmpladaPit(),
+            c.getPreuBase(), c.getIVA(), c.getStock());
+}
     }
+}
 
     public boolean checkStock(int quantitat, int idArticle) {
 
