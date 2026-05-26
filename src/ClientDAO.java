@@ -7,6 +7,7 @@ import utils.ConnexioBD;
 
 public class ClientDAO {
     public void afegirClient(Clients client) {
+        
         Connection conn = ConnexioBD.conn;
         String query = "INSERT INTO clients (dni, nom, email, telefon) VALUES (?, ?, ?, ?)";
 
