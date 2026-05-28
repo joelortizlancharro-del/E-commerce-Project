@@ -1,7 +1,5 @@
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import utils.ConnexioBD;
 
 public class App {
