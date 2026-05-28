@@ -25,7 +25,7 @@ public class ConnexioBD{
         return result;
     }
     
-    public ResultSet selectArticles() {
+    /*public ResultSet selectArticles() {
         ResultSet rs=null;
         try{
             Statement stmt = conn.createStatement();
@@ -34,18 +34,50 @@ public class ConnexioBD{
             e.printStackTrace();
         }
         return rs;
+    }*/
+
+    public ResultSet selectArticles() {
+        ResultSet rs = null;
+        try {
+            Statement stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM articles");
+            if (rs.next()) {
+                while (rs.next()) {
+                    System.out.println("Nom: " + rs.getString("nom"));
+                    if (rs.getInt("familia") == 1) {
+                        System.out.println("Familia: Camisa");
+                        System.out.println("Talla Coll: " + rs.getInt("talla_coll"));
+                        System.out.println("Amplada Pit: " + rs.getInt("amplada_pit"));
+                    } else {
+                        System.out.println("Familia: Pantalo");
+                        System.out.println("Talla Cintura: " + rs.getInt("talla_cintura"));
+                        System.out.println("Llargada Camal: " + rs.getInt("llargada_camal"));
+                    }
+                    System.out.println("Preu Base: " + rs.getBigDecimal("preu_base"));
+                    System.out.println("Preu Base: " + rs.getInt("iva"));
+                    System.out.println("Stock: " + rs.getString("stock"));
+                }
+
+            } else {
+                System.out.println("No existeixen articles");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rs;
     }
 
     public ResultSet selectArticlesById(int id) {
-        ResultSet rs=null;
-            try{
-                String sql = "SELECT * FROM articles WHERE id = ?";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setInt(1, id);
-                rs = ps.executeQuery(sql);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM articles WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery(sql);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return rs;
     }
     

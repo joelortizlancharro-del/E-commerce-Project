@@ -57,5 +57,7 @@ public ArrayList<Producte> llegirProductes() {
             e.printStackTrace();
         }
     }
+
+    
     
 }
