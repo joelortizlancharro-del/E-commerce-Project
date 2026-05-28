@@ -40,4 +40,8 @@
 - Documentació SCRUM
 
 ## Enllaç a ClickUp
+<<<<<<< HEAD
 [https://app.clickup.com/90121628356/v/li/901217068682](https://app.clickup.com/90121628356/v/li/901217068682)
+=======
+[https://app.clickup.com/90121628356/v/li/901217068682](https://app.clickup.com/90121628356/v/li/901217068682)
+>>>>>>> origin
