@@ -1,8 +1,10 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import utils.ConnexioBD;
+import utils.Venta;
 
 public class App {
     static ConnexioBD conexio=null;
@@ -10,6 +12,9 @@ public class App {
       
     ControlJSON json = new ControlJSON();
      ClientDAO clientDAO = new ClientDAO();
+     Venta ventes = new Venta();
+     vendesPerArticle ventesArticle = new vendesPerArticle();
+     VendesClientDAO vendesPerClient = new VendesClientDAO();
 
 
     public static void main(String[] args) throws Exception {
@@ -35,6 +40,9 @@ public class App {
         System.out.println("==============================");
         System.out.println("1. CRUD de clients.");
         System.out.println("2. CRUD de articles.");
+        System.out.println("3. Registrar vendes.");
+        System.out.println("4. Consulta tiquets");
+        System.out.println("5. Sortir");
         System.out.print("Que vols fer?");
         int num = sc.nextInt(); 
         opcions(num); //Aqui cridem el switch
@@ -49,6 +57,16 @@ public class App {
             case 2:
                 menuCRUDArticles();
                 break;
+
+            case 3: 
+                menuVendes();
+                break;
+
+            case 4:
+                menuConsultes();
+                break;
+            case 5: 
+                System.exit(0);
 
             default:
                 break;
@@ -116,6 +134,30 @@ public class App {
         } while (num > 4 || num < 1);
     }
     
+    public void menuConsultes(){
+        int opcio;
+        do {
+            System.out.println("Vols fer consulta de ventes per article i per usuari.");
+            System.out.println("1.Recerca per DNI.");
+            System.out.println("2.Rcerca per id de article");
+            opcio = controlInt();
+        } while (opcio > 2 || opcio < 1);
+        
+        switch (opcio) {
+            case 1:
+                recercaPerDNI();
+                break;
+
+            case 2:
+                recercaPerID();
+                break;
+        
+            default:
+                break;
+        }
+
+    }
+
     public void CRUDCLientSwitch(int num){
         
         switch (num) {
@@ -217,6 +259,7 @@ public class App {
         } while (!demanarDNI(dni));
        
         clientDAO.consultarClient(dni);
+        menu();
     }
 
     public void buscarArticleID(){
@@ -226,14 +269,17 @@ public class App {
         int id = sc.nextInt();
 
         conexio.selectArticlesById(id);
+        menu();
     }
 
     public void recercaTotsClients(){
         clientDAO.llistarClients();
+        menu();
     }
 
     public void recercaTotsArticles(){
         conexio.selectArticles();
+        menu();
     }
 
     public void crearClient(){
@@ -265,6 +311,7 @@ public class App {
 
         
         clientDAO.afegirClient(client);
+        menu();
     }
 
     public void crearArticle(){
@@ -357,6 +404,7 @@ public class App {
 
             conexio.insertArticle(id, nom, familia, talla_cintura, llargada_camal, preu_base, iva, stock);  //quan faci el merge quedara correcte ja que en el origin develop el familia es int
         }
+        menu();
     }
 
     public void modificarClient(){
@@ -387,6 +435,7 @@ public class App {
 
         Clients client = new Clients(dni, nom, email, telefon);
         clientDAO.modificarClient(client);
+        menu();
         
     }
 
@@ -479,6 +528,7 @@ public class App {
             }
 
             conexio.updateArticle(id, nom, familia, talla_cintura, llargada_camal, preu_base, iva, stock);  //quan faci el merge quedara correcte ja que en el origin develop el familia es int
+            menu();
         }
     }
 
@@ -492,6 +542,7 @@ public class App {
         } while (!demanarDNI(dni));
 
         clientDAO.esborrarClient(dni);
+        menu();
     }
 
     public void esborrarArticle(){
@@ -501,8 +552,76 @@ public class App {
         int id = sc.nextInt();
 
         conexio.deleteArticle(id);
+        menu();
     }
 
+    public void menuVendes(){
+        String dni;
+        int IDArticle;
+        int seguirComprant;
+        int quantitatProducte;
+        int maximArticles = 0;
+        ArrayList<Integer> idArticles = new ArrayList<>();
+        ArrayList<Integer> quantitats = new ArrayList<>();
+
+        try {
+            ResultSet rs = conexio.numArticles();
+            if(rs.next()){
+                maximArticles = rs.getInt("COUNT(*)");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en obtenir el nombre d'articles: " + e.getMessage());
+            return;
+        }
+
+        System.out.println("Vols fer comprar.");
+        do {
+            System.out.println("Introdueix el seu DNI:");
+            dni = sc.next();
+        } while (!demanarDNI(dni));
+
+        do {
+            do {
+                conexio.selectArticles();
+                System.out.println("===============");
+                System.out.println("Intodueix el ID del article a comprar");
+            IDArticle = controlInt();
+            }while (IDArticle <= 0 || IDArticle > maximArticles);
+            do {
+                System.out.println("Quants del article vols comprar?");
+                quantitatProducte = controlInt();
+            } while (quantitatProducte <= 0);
+            do {
+                System.out.println("Vols seguir comprant? 1.SI. 2.NO.");
+                seguirComprant = controlInt();
+            } while (seguirComprant > 2 || seguirComprant < 1);
+            idArticles.add(IDArticle);
+            quantitats.add(quantitatProducte);
+        } while (seguirComprant != 2);
+        
+        ventes.insertVenta(dni, idArticles, quantitats);
+        menu();
+    }
+
+    public void recercaPerDNI(){
+        String dni;
+        do {
+            System.out.print("Introdueix el DNI del usuari el qual vols consultar:");
+            dni = sc.next();
+        } while (!demanarDNI(dni));
+        vendesPerClient.consultaVendesClient(dni);
+        menu();
+    }
+
+    public void recercaPerID(){
+        int id;
+            
+        System.out.print("Introdueix el ID del producte el cual vols fer recerca:");
+        id = controlInt();
+        ventesArticle.mostrarPerArticle(id);
+        menu();
+    }
+   
     public boolean demanarDNI(String dni){
         int llargadaDNI = dni.length();
         char ultimDNI = dni.charAt(dni.length() - 1);
@@ -558,4 +677,18 @@ public class App {
             return false;
         }
     }
+
+    public int controlInt(){
+        int num;
+        try {
+            num = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Ha de ser numero enter");
+            num = -100;
+            return num;
+        }
+        return num;
+    }
+
+
 }

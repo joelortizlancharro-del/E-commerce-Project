@@ -43,6 +43,7 @@ public class ConnexioBD{
             rs = stmt.executeQuery("SELECT * FROM articles");
             if (rs.next()) {
                 while (rs.next()) {
+                    System.out.println("Id: " + rs.getInt("id"));
                     System.out.println("Nom: " + rs.getString("nom"));
                     if (rs.getInt("familia") == 1) {
                         System.out.println("Familia: Camisa");
@@ -177,5 +178,17 @@ public class ConnexioBD{
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public ResultSet numArticles() {
+        ResultSet rs = null;
+        try {
+            Statement stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM articles");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rs;
     }
 }
